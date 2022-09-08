@@ -1,6 +1,7 @@
 package com.example.nhi.item_management.controller;
 
 import com.example.nhi.item_management.dao.ItemDao;
+import com.example.nhi.item_management.exception.ItemNotFoundException;
 import com.example.nhi.item_management.model.Item;
 import com.example.nhi.item_management.model.Items;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class ItemController {
         try {
             return itemDao.getOneItem(id);
         } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+            throw new ItemNotFoundException("Cannot find the item with id " + id);
         }
     }
 
@@ -41,7 +42,7 @@ public class ItemController {
             itemDao.updateItem(item);
             return "Update successfully";
         } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+            throw new ItemNotFoundException("Cannot find the item you want to update.");
         }
     }
 
@@ -51,7 +52,7 @@ public class ItemController {
             itemDao.deleteItem(item);
             return "Delete successfully";
         } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+            throw new ItemNotFoundException("Cannot find the item you want to delete.");
         }
     }
 
