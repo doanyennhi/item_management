@@ -1,5 +1,6 @@
 package com.example.nhi.item_management.dao;
 
+import com.example.nhi.item_management.exception.ItemNotFoundException;
 import com.example.nhi.item_management.model.Item;
 import com.example.nhi.item_management.model.Items;
 import org.springframework.stereotype.Repository;
@@ -19,20 +20,20 @@ public class ItemDao {
         return items;
     }
 
-    public Item getOneItem(String id) throws Exception {
+    public Item getOneItem(String id) throws ItemNotFoundException {
         for (Item currentItem: items.getItemList()) {
             if (currentItem.getId().equals(id)) {
                 return currentItem;
             }
         }
-        throw new Exception("Item does not exist.");
+        throw new ItemNotFoundException();
     }
 
     public void addItem(Item item) {
         items.getItemList().add(item);
     }
 
-    public void updateItem(Item item) throws Exception {
+    public void updateItem(Item item) throws ItemNotFoundException {
        for (Item currentItem: items.getItemList()) {
            if (item.getId().equals(currentItem.getId())) {
                items.getItemList().remove(currentItem);
@@ -40,16 +41,16 @@ public class ItemDao {
                return;
            }
        }
-        throw new Exception("Item does not exist.");
+        throw new ItemNotFoundException();
     }
 
-    public void deleteItem(Item item) throws Exception {
+    public void deleteItem(Item item) throws ItemNotFoundException {
         for (Item currentItem: items.getItemList()) {
             if (item.getId().equals(currentItem.getId())) {
                 items.getItemList().remove(currentItem);
                 return;
             }
         }
-        throw new Exception("Item does not exist.");
+        throw new ItemNotFoundException();
     }
 }

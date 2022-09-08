@@ -27,7 +27,7 @@ public class ItemController {
         try {
             return itemDao.getOneItem(id);
         } catch (Exception e) {
-            throw new ItemNotFoundException("Cannot find the item with id " + id);
+            throw new ItemNotFoundException();
         }
     }
 
@@ -37,22 +37,22 @@ public class ItemController {
     }
 
     @PutMapping("/item")
-    public String updateItem(@RequestBody Item item) {
+    public ResponseEntity<Object> updateItem(@RequestBody Item item) {
         try {
             itemDao.updateItem(item);
-            return "Update successfully";
+            return new ResponseEntity<>("Update successfully", HttpStatus.OK);
         } catch (Exception e) {
-            throw new ItemNotFoundException("Cannot find the item you want to update.");
+            throw new ItemNotFoundException();
         }
     }
 
     @DeleteMapping("/item")
-    public String deleteItem(@RequestBody Item item) {
+    public ResponseEntity<Object> deleteItem(@RequestBody Item item) {
         try {
             itemDao.deleteItem(item);
-            return "Delete successfully";
+            return new ResponseEntity<>("Delete successfully", HttpStatus.OK);
         } catch (Exception e) {
-            throw new ItemNotFoundException("Cannot find the item you want to delete.");
+            throw new ItemNotFoundException();
         }
     }
 
