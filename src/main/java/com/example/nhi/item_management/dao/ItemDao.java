@@ -19,6 +19,15 @@ public class ItemDao {
         return items;
     }
 
+    public Item getOneItem(String id) throws Exception {
+        for (Item currentItem: items.getItemList()) {
+            if (currentItem.getId().equals(id)) {
+                return currentItem;
+            }
+        }
+        throw new Exception("Item does not exist.");
+    }
+
     public void addItem(Item item) {
         items.getItemList().add(item);
     }
