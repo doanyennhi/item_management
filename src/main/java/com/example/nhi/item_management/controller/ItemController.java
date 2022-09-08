@@ -15,7 +15,7 @@ public class ItemController {
     @Autowired
     private ItemDao itemDao;
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<Item> createItem(@RequestBody Item item) {
         itemDao.addItem(item);
         return new ResponseEntity<>(item, HttpStatus.CREATED);
