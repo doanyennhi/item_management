@@ -22,18 +22,37 @@ public class ItemController {
     }
 
     @GetMapping("/item{id}")
-    public ResponseEntity<Item> getOneItem(@PathVariable String id) {
+    public Item getOneItem(@PathVariable String id) {
         try {
-            Item item = itemDao.getOneItem(id);
-            return new ResponseEntity<>(item, HttpStatus.OK);
+            return itemDao.getOneItem(id);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage());
         }
     }
 
-    @GetMapping("/item/item")
+    @GetMapping("/item")
     public Items getAllItems() {
         return itemDao.getItems();
+    }
+
+    @PutMapping("/item")
+    public String updateItem(@RequestBody Item item) {
+        try {
+            itemDao.updateItem(item);
+            return "Update successfully";
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/item")
+    public String deleteItem(@RequestBody Item item) {
+        try {
+            itemDao.deleteItem(item);
+            return "Delete successfully";
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
 }

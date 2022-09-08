@@ -37,14 +37,19 @@ public class ItemDao {
            if (item.getId().equals(currentItem.getId())) {
                items.getItemList().remove(currentItem);
                items.getItemList().add(item);
-           }
-           else {
-               throw new Exception("Item does not exist.");
+               return;
            }
        }
+        throw new Exception("Item does not exist.");
     }
 
-    public void deleteItem(Item item) {
-        items.getItemList().remove(item);
+    public void deleteItem(Item item) throws Exception {
+        for (Item currentItem: items.getItemList()) {
+            if (item.getId().equals(currentItem.getId())) {
+                items.getItemList().remove(currentItem);
+                return;
+            }
+        }
+        throw new Exception("Item does not exist.");
     }
 }
