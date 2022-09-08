@@ -1,6 +1,7 @@
 package com.example.nhi.item_management.controller;
 
 import com.example.nhi.item_management.dao.ItemDao;
+import com.example.nhi.item_management.exception.ItemNotFoundException;
 import com.example.nhi.item_management.model.Item;
 import com.example.nhi.item_management.model.Items;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class ItemController {
         try {
             return itemDao.getOneItem(id);
         } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+            throw new ItemNotFoundException();
         }
     }
 
@@ -36,22 +37,22 @@ public class ItemController {
     }
 
     @PutMapping("/item")
-    public String updateItem(@RequestBody Item item) {
+    public ResponseEntity<Object> updateItem(@RequestBody Item item) {
         try {
             itemDao.updateItem(item);
-            return "Update successfully";
+            return new ResponseEntity<>("Update successfully", HttpStatus.OK);
         } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+            throw new ItemNotFoundException();
         }
     }
 
     @DeleteMapping("/item")
-    public String deleteItem(@RequestBody Item item) {
+    public ResponseEntity<Object> deleteItem(@RequestBody Item item) {
         try {
             itemDao.deleteItem(item);
-            return "Delete successfully";
+            return new ResponseEntity<>("Delete successfully", HttpStatus.OK);
         } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+            throw new ItemNotFoundException();
         }
     }
 
